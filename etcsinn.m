@@ -236,16 +236,12 @@ alpha42=-c42*z42^(2*0.95-1)-(output12-alpha41)/r42-k41*(output8-x(15))-theta42*b
 
 
 
-%%%%%Controller Saturation 
-v1=-c12*z12^(2*0.95-1)-(output9-alpha11)/r12-k11*(output5-x(9))-theta12*b1'-2*z12;
-v2=-c22*z22^(2*0.95-1)-(output10-alpha21)/r22-k21*(output6-x(11))-theta22*b2'-2*z22;
-v3=-c32*z32^(2*0.95-1)-(output11-alpha31)/r32-k31*(output7-x(13))-theta32*b3'-2*z32;
-v4=-c42*z42^(2*0.95-1)-(output12-alpha41)/r42-k41*(output8-x(15))-theta42*b4'-2*z42;
+
 %%%%% 
-% v1=--1.5*(alpha12*tanh(z12*alpha12/mi1)+itag1*tanh(itag1*z12/mi1)); 
-% v2=-1.5*(alpha22*tanh(z22*alpha22/mi2)+itag2*tanh(itag2*z22/mi2));
-% v3=-1.5*(alpha32*tanh(z32*alpha32/mi3)+itag3*tanh(itag3*z32/mi3));
-% v4=-1.5*(alpha42*tanh(z42*alpha42/mi4)+itag4*tanh(itag4*z42/mi4));
+v1=-1.5*(alpha12*tanh(z12*alpha12/mi1)+itag1*tanh(itag1*z12/mi1)); 
+v2=-1.5*(alpha22*tanh(z22*alpha22/mi2)+itag2*tanh(itag2*z22/mi2));
+v3=-1.5*(alpha32*tanh(z32*alpha32/mi3)+itag3*tanh(itag3*z32/mi3));
+v4=-1.5*(alpha42*tanh(z42*alpha42/mi4)+itag4*tanh(itag4*z42/mi4));
 
 %Event-triggered conditons
 ee1=2;
@@ -284,46 +280,7 @@ else
 output4=u_t4; 
 end
 
-%Controller Saturation 
-u1max=1;
-u1min=-1;
-if output1>u1max
-  u1=u1max;  
-elseif output1<u1min
-    u1=u1min;
-else
- u1=output1;
-end
 
-u2max=1;
-u2min=-1;
-if output2>u2max
-  u2=u2max;  
-elseif output2<u2min
-    u2=u2min;
-else
- u2=output2;
-end
- 
-u3max=1;
-u3min=-1;
-if output3>u3max
-  u3=u3max;  
-elseif output3<u3min
-    u3=u3min;
-else
- u3=output3;
-end
- 
-u4max=1;
-u4min=-1;
-if output4>u4max
-  u4=u4max;  
-elseif output4<u4min
-    u4=u4min;
-else
- u4=output4;
-end
 
 
 
@@ -350,13 +307,13 @@ C4=[0 0 0 1 0];
 C5=[0 0 0 0 1];
 
 sys(1)=real(x(2)+f11);
-sys(2)=real(u1+f12+0.1*sin(t)*cos(t));
+sys(2)=real(output1+f12+0.1*sin(t)*cos(t));
 sys(3)=real(x(4)+f21);
-sys(4)=real(u2+f22+0.1*sin(t)*cos(t));
+sys(4)=real(output2+f22+0.1*sin(t)*cos(t));
 sys(5)=real(x(6)+f31);
-sys(6)=real(u3+f32+0.1*sin(t)*cos(t));
+sys(6)=real(output3+f32+0.1*sin(t)*cos(t));
 sys(7)=real(x(8)+f41);
-sys(8)=real(u4+f42+0.1*sin(t)*cos(t));
+sys(8)=real(output4+f42+0.1*sin(t)*cos(t));
 sys(9)=real(x(10)+theta11*a1'+k11*(output5-x(9)));
 sys(10)=real(output1+theta12*b1'+k12*(output5-x(9)));
 sys(11)=real(x(12)+theta21*a2'+k21*(output6-x(11)));
@@ -626,17 +583,11 @@ w42=x(59)-alpha41;
 alpha42=-c42*z42^(2*0.95-1)-(output12-alpha41)/r42-k41*(output8-x(15))-theta42*b4'-2*z42;
 
 
-%¿ØÖÆÆ÷´¥·¢
-%%%%%Controller Saturation 
-v1=-c12*z12^(2*0.95-1)-(output9-alpha11)/r12-k11*(output5-x(9))-theta12*b1'-2*z12;
-v2=-c22*z22^(2*0.95-1)-(output10-alpha21)/r22-k21*(output6-x(11))-theta22*b2'-2*z22;
-v3=-c32*z32^(2*0.95-1)-(output11-alpha31)/r32-k31*(output7-x(13))-theta32*b3'-2*z32;
-v4=-c42*z42^(2*0.95-1)-(output12-alpha41)/r42-k41*(output8-x(15))-theta42*b4'-2*z42;
-%%%%% 
-% v1=--1.5*(alpha12*tanh(z12*alpha12/mi1)+itag1*tanh(itag1*z12/mi1)); 
-% v2=-1.5*(alpha22*tanh(z22*alpha22/mi2)+itag2*tanh(itag2*z22/mi2));
-% v3=-1.5*(alpha32*tanh(z32*alpha32/mi3)+itag3*tanh(itag3*z32/mi3));
-% v4=-1.5*(alpha42*tanh(z42*alpha42/mi4)+itag4*tanh(itag4*z42/mi4));
+
+v1=-1.5*(alpha12*tanh(z12*alpha12/mi1)+itag1*tanh(itag1*z12/mi1)); 
+v2=-1.5*(alpha22*tanh(z22*alpha22/mi2)+itag2*tanh(itag2*z22/mi2));
+v3=-1.5*(alpha32*tanh(z32*alpha32/mi3)+itag3*tanh(itag3*z32/mi3));
+v4=-1.5*(alpha42*tanh(z42*alpha42/mi4)+itag4*tanh(itag4*z42/mi4));
 
 %Event-triggered conditons
 ee1=2;
@@ -673,47 +624,6 @@ if abs(u_t4-u_tk4)<=0.5*abs(u_tk4)+ee4
 output4=u_tk4;
 else 
 output4=u_t4; 
-end
-
-%Controller Saturation 
-u1max=1;
-u1min=-1;
-if output1>u1max
-  u1=u1max;  
-elseif output1<u1min
-    u1=u1min;
-else
- u1=output1;
-end
-
-u2max=1;
-u2min=-1;
-if output2>u2max
-  u2=u2max;  
-elseif output2<u2min
-    u2=u2min;
-else
- u2=output2;
-end
- 
-u3max=1;
-u3min=-1;
-if output3>u3max
-  u3=u3max;  
-elseif output3<u3min
-    u3=u3min;
-else
- u3=output3;
-end
- 
-u4max=1;
-u4min=-1;
-if output4>u4max
-  u4=u4max;  
-elseif output4<u4min
-    u4=u4min;
-else
- u4=output4;
 end
 
 
