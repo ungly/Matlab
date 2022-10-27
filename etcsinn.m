@@ -22,9 +22,9 @@ end
 %=============================================================================
 function [sys,x0,str,ts]=mdlInitializeSizes
 sizes = simsizes;
-sizes.NumContStates  = 85;%±äÁ¿µÄ¸öÊý£¬x(1),x(2),x(3),x(4),x(5)
+sizes.NumContStates  = 85;%å˜é‡çš„ä¸ªæ•°ï¼Œx(1),x(2),x(3),x(4),x(5)
 sizes.NumDiscStates  = 0;
-sizes.NumOutputs     = 30;%DemuxµÄÊä³ö¸öÊý    ¸Ä¸Ä¸Ä
+sizes.NumOutputs     = 30;%Demuxçš„è¾“å‡ºä¸ªæ•°    æ”¹æ”¹æ”¹
 sizes.NumInputs      = 12;
 sizes.DirFeedthrough = 1;
 sizes.NumSampleTimes = 1;
@@ -40,13 +40,13 @@ x0 = [0.1;-0.1; 0.2;0.1; 0.2;0.1;
    0;0;0;0;0; 0;0;0;0;0;
    0;0;0;0;0; 0;0;0;0;0;
    0;0;0;0;0;
-   0;0;0;0;0;];%³õÊ¼Öµ  ¸Ä¸Ä¸Ä
+   0;0;0;0;0;];%åˆå§‹å€¼  æ”¹æ”¹æ”¹
 str = [];
 ts  = [0 0];
 % end mdlInitializeSizes 
 % mdlDerivatives
 % Return the derivatives for the continuous states.
-function sys=mdlDerivatives(t,x,u)%µ¼Êý
+function sys=mdlDerivatives(t,x,u)%å¯¼æ•°
 %%%Leader
 y1d=0.3*sin(0.2*t)+0.2;dy1d=0.06*cos(0.5*t); 
 y2d=0.3*sin(0.2*t)-0.1;dy2d=0.06*cos(0.5*t);
@@ -129,8 +129,6 @@ ita1=0.5;ita2=0.5;ita3=0.5;ita4=0.5;
 itag1=1;itag2=1;itag3=1;itag4=1;
 mi1=0.1;mi2=0.1;mi3=0.1;mi4=0.1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%Event-triggered conditons
 ee9=0.00001;
 u_t9=x(56);
 u_tk9=u(9);
@@ -166,7 +164,7 @@ output12=u_tk12;
 else 
 output12=u_t12; 
 end
-%%%%Event-triggered conditons
+
 ee5=0.005;
 u_t5=x(1);
 u_tk5=u(5);
@@ -235,8 +233,6 @@ v2=-c22*z22^(2*0.95-1)-(output10-alpha21)/r22-k21*(output6-x(11))-theta22*b2'-2*
 v3=-c32*z32^(2*0.95-1)-(output11-alpha31)/r32-k31*(output7-x(13))-theta32*b3'-2*z32;
 v4=-c42*z42^(2*0.95-1)-(output12-alpha41)/r42-k41*(output8-x(15))-theta42*b4'-2*z42;
 %%%%% 
-
-%Event-triggered conditons
 ee1=2;
 u_t1=v1;
 u_tk1=u(1);
@@ -284,8 +280,8 @@ else
  u1=output1;
 end
 
-u2max=15;
-u2min=-15;
+u2max=1;
+u2min=-1;
 if output2>u2max
   u2=u2max;  
 elseif output2<u2min
@@ -294,8 +290,8 @@ else
  u2=output2;
 end
  
-u3max=15;
-u3min=-15;
+u3max=1;
+u3min=-1;
 if output3>u3max
   u3=u3max;  
 elseif output3<u3min
@@ -304,8 +300,8 @@ else
  u3=output3;
 end
  
-u4max=5;
-u4min=-5;
+u4max=1;
+u4min=-1;
 if output4>u4max
   u4=u4max;  
 elseif output4<u4min
@@ -508,7 +504,6 @@ cigma112=0.01;cigma223=0.01;cigma332=0.01;cigma441=0.01;cigma443=0.01;
 itag1=1;itag2=1;itag3=1;itag4=1;
 mi1=0.1;mi2=0.1;mi3=0.1;mi4=0.1;
 
-%Event-triggered conditons
 ee9=0.00001;
 u_t9=x(56);
 u_tk9=u(9);
@@ -588,7 +583,6 @@ z12=x(10)-x(56);
 z12=x(10)-output9;
 w12=x(56)-alpha11;
 alpha12=-c12*z12^(2*0.95-1)-(output9-alpha11)/r12-k11*(output5-x(9))-theta12*b1'-2*z12;
-
 %%%%%%%%%
 z21=a21*(x(3)-x(1))+a23*(x(3)-x(5))+a24*(x(3)-x(7))+a25*(x(3)-y1d)+a26*(x(3)-y2d); 
 alpha21=(1/2)*(-c21*z21^(2*0.95-1)+a21*x(10)+a23*x(14)+a24*x(16)-l2*z21-0.5*z21+a21*theta11*a1'+a23*theta31*a3'+a24*theta41*a4'+a25*dy1d+a26*dy2d)-theta21*a2';
@@ -596,8 +590,6 @@ z22=x(12)-x(57);
 z22=x(12)-output10;
 w22=x(57)-alpha21;
 alpha22=-c22*z22^(2*0.95-1)-(output10-alpha21)/r22-k21*(output6-x(11))-theta22*b2'-2*z22;
-
-
 %%%%%%%%%%
 z31=a31*(x(5)-x(1))+a32*(x(5)-x(3))+a34*(x(5)-x(7))+a35*(x(5)-y1d)+a36*(x(5)-y2d); 
 alpha31=(1/2)*(-c31*z31^(2*0.95-1)+a31*x(10)+a32*x(14)+a34*x(16)-l3*z31-0.5*z31+a31*theta11*a1'+a32*theta21*a2'+a34*theta41*a4'+a35*dy1d+a36*dy2d)-theta31*a3';
@@ -605,7 +597,6 @@ z32=x(14)-x(58);
 z32=x(14)-output11;
 w32=x(58)-alpha31;
 alpha32=-c32*z32^(2*0.95-1)-(output11-alpha31)/r32-k31*(output7-x(13))-theta32*b3'-2*z32;
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 z41=a41*(x(7)-x(1))+a42*(x(7)-x(3))+a43*(x(7)-x(5))+a45*(x(7)-y1d)+a46*(x(7)-y2d); 
 alpha41=(1/3)*(-c41^(2*0.95-1)*z41+a41*x(10)+a42*x(12)+a43*x(14)-l4*z41-0.5*z41+a41*theta11*a1'+a42*theta21*a2'+a43*theta31*a3'+a45*dy1d+a46*dy2d)-theta41*a4';
@@ -617,7 +608,6 @@ v1=-c12*z12^(2*0.95-1)-(output9-alpha11)/r12-k11*(output5-x(9))-theta12*b1'-2*z1
 v2=-c22*z22^(2*0.95-1)-(output10-alpha21)/r22-k21*(output6-x(11))-theta22*b2'-2*z22;
 v3=-c32*z32^(2*0.95-1)-(output11-alpha31)/r32-k31*(output7-x(13))-theta32*b3'-2*z32;
 v4=-c42*z42^(2*0.95-1)-(output12-alpha41)/r42-k41*(output8-x(15))-theta42*b4'-2*z42;
-
 
 ee1=2;
 u_t1=v1;
@@ -655,8 +645,8 @@ else
 output4=u_t4; 
 end
 
-u1max=15;
-u1min=-15;
+u1max=1;
+u1min=-1;
 if output1>u1max
   u1=u1max;  
 elseif output1<u1min
@@ -665,8 +655,8 @@ else
  u1=output1;
 end
 
-u2max=15;
-u2min=-15;
+u2max=1;
+u2min=-1;
 if output2>u2max
   u2=u2max;  
 elseif output2<u2min
@@ -675,8 +665,8 @@ else
  u2=output2;
 end
  
-u3max=15;
-u3min=-15;
+u3max=1;
+u3min=-1;
 if output3>u3max
   u3=u3max;  
 elseif output3<u3min
@@ -685,8 +675,8 @@ else
  u3=output3;
 end
  
-u4max=15;
-u4min=-15;
+u4max=1;
+u4min=-1;
 if output4>u4max
   u4=u4max;  
 elseif output4<u4min
@@ -733,7 +723,7 @@ sys(30)=y2d;
 
 
 
-%%%%%%%%%%%%%%%·ÂÕæ×îºóÓÐ¶àÉÙ¸öÊä³öÐ´¶àÉÙ¸ö 
+%%%%%%%%%%%%%%%ä»¿çœŸæœ€åŽæœ‰å¤šå°‘ä¸ªè¾“å‡ºå†™å¤šå°‘ä¸ª 
 %plot(t,v1,'k',t,v2,'-r',t,v3,'-b',t,v4,'g');axis([0 30 -5 5]);
 %plot(t,u1,'k',t,u2,'-r',t,u3,'-b',t,u4,'g');axis([0 30 -5 5]);
 % end mdlOutputs
