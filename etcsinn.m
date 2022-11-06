@@ -22,9 +22,9 @@ end
 %=============================================================================
 function [sys,x0,str,ts]=mdlInitializeSizes
 sizes = simsizes;
-sizes.NumContStates  = 85;%±äÁ¿µÄ¸öÊı£¬x(1),x(2),x(3),x(4),x(5)
+sizes.NumContStates  = 85;%å˜é‡çš„ä¸ªæ•°ï¼Œx(1),x(2),x(3),x(4),x(5)
 sizes.NumDiscStates  = 0;
-sizes.NumOutputs     = 30;%DemuxµÄÊä³ö¸öÊı    ¸Ä¸Ä¸Ä
+sizes.NumOutputs     = 30;%Demuxçš„è¾“å‡ºä¸ªæ•°    æ”¹æ”¹æ”¹
 sizes.NumInputs      = 12;
 sizes.DirFeedthrough = 1;
 sizes.NumSampleTimes = 1;
@@ -40,16 +40,16 @@ x0 = [0.1;-0.1; 0.2;0.1; 0.2;0.1;
    0;0;0;0;0; 0;0;0;0;0;
    0;0;0;0;0; 0;0;0;0;0;
    0;0;0;0;0;
-   0;0;0;0;0;];%³õÊ¼Öµ  ¸Ä¸Ä¸Ä
+   0;0;0;0;0;];%åˆå§‹å€¼  æ”¹æ”¹æ”¹
 str = [];
 ts  = [0 0];
 % end mdlInitializeSizes 
 % mdlDerivatives
 % Return the derivatives for the continuous states.
-function sys=mdlDerivatives(t,x,u)%µ¼Êı
+function sys=mdlDerivatives(t,x,u)%å¯¼æ•°
 %%%Leader
-y1d=0.3*sin(0.2*t)+0.2;dy1d=0.06*cos(0.5*t); 
-y2d=0.3*sin(0.2*t)-0.1;dy2d=0.06*cos(0.5*t);
+y1d=0.3*sin(0.2*t)+0.2;dy1d=0.06*cos(0.2*t); 
+y2d=0.3*sin(0.2*t)-0.1;dy2d=0.06*cos(0.2*t);
 %%%Communication topology graph
 a12=1; a13=0; a14=0; a15=0; a16=0;
 a21=0; a23=1; a24=0; a25=1; a26=0;
@@ -417,8 +417,8 @@ sys(85)=real(-w42/r42);
 % Return the block outputs.
 function sys=mdlOutputs(t,x,u) 
 %%%Leader
-y1d=0.3*sin(0.2*t)+0.2;dy1d=0.06*cos(0.5*t); 
-y2d=0.3*sin(0.2*t)-0.1;dy2d=0.06*cos(0.5*t);
+y1d=0.3*sin(0.2*t)+0.2;dy1d=0.06*cos(0.2*t); 
+y2d=0.3*sin(0.2*t)-0.1;dy2d=0.06*cos(0.2*t);
 %%%Communication topology graph
 a12=1; a13=0; a14=0; a15=0; a16=0;
 a21=0; a23=1; a24=0; a25=1; a26=0;
@@ -708,7 +708,7 @@ sys(30)=y2d;
 
 
 
-%%%%%%%%%%%%%%%·ÂÕæ×îºóÓĞ¶àÉÙ¸öÊä³öĞ´¶àÉÙ¸ö 
+%%%%%%%%%%%%%%%ä»¿çœŸæœ€åæœ‰å¤šå°‘ä¸ªè¾“å‡ºå†™å¤šå°‘ä¸ª 
 %plot(t,y1c,'r',t,y2c,'b',t,y3c,'g',t,y4c,'m',t,yr,'k',t,yr2,'k');axis([0 30 -0.8 0.8]);
 %plot(t,u1,'k',t,u2,'-r',t,u3,'-b',t,u4,'g');
 % end mdlOutputs
