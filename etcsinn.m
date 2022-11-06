@@ -22,9 +22,9 @@ end
 %=============================================================================
 function [sys,x0,str,ts]=mdlInitializeSizes
 sizes = simsizes;
-sizes.NumContStates  = 85;%变量的个数，x(1),x(2),x(3),x(4),x(5)
+sizes.NumContStates  = 85;%x(1),x(2),x(3),x(4),x(5)
 sizes.NumDiscStates  = 0;
-sizes.NumOutputs     = 30;%Demux的输出个数    改改改
+sizes.NumOutputs     = 30;%Demux
 sizes.NumInputs      = 12;
 sizes.DirFeedthrough = 1;
 sizes.NumSampleTimes = 1;
@@ -40,13 +40,13 @@ x0 = [0.1;-0.1; 0.2;0.1; 0.2;0.1;
    0;0;0;0;0; 0;0;0;0;0;
    0;0;0;0;0; 0;0;0;0;0;
    0;0;0;0;0;
-   0;0;0;0;0;];%初始值  改改改
+   0;0;0;0;0;];%initial conditions 
 str = [];
 ts  = [0 0];
 % end mdlInitializeSizes 
 % mdlDerivatives
 % Return the derivatives for the continuous states.
-function sys=mdlDerivatives(t,x,u)%导数
+function sys=mdlDerivatives(t,x,u)%
 %%%Leader
 y1d=0.3*sin(0.2*t)+0.2;dy1d=0.06*cos(0.2*t); 
 y2d=0.3*sin(0.2*t)-0.1;dy2d=0.06*cos(0.2*t);
